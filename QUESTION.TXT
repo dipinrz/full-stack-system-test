@@ -1,0 +1,26 @@
+Backend (Node.js + Express + TypeScript + Sequelize)
+Create an API to serve trend data from a database of incident records.
+
+1. GET /trends/top-residents
+
+	Returns the top 3 residents with the most incidents in the past 7 days.
+
+2. GET /trends/hourly
+
+	Returns hourly incident counts over the past 7 days.
+
+
+Frontend - Next.js 15 + React 19 + Tailwind CSS + Recharts
+Create a Trends Dashboard page that:
+
+1. Resident-wise Trends (Top Incidents)
+
+	Calls /trends/top-residents.
+
+	Displays a bar chart using Recharts with resident names on X-axis and incident counts on Y-axis.
+
+2. Hourly Incident Distribution
+
+	Calls /trends/hourly.
+
+	Displays a line chart showing incident frequency by hour.
