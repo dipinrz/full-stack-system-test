@@ -1,10 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import axios from "axios";
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+  const [users, setUsers] = useState<User[]>([]);
+
+  const handleFetchData = async () => {
+    try {
+      const resp = await axios.get<User[]>("http://localhost:3000/api/users");
+      if (resp.status === 200) {
+        setUsers(resp.data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    handleFetchData();
+  }, []);
 
   return (
     <>
@@ -21,15 +44,26 @@ function App() {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
       </div>
+
+      <h2>Users</h2>
+      {users.length > 0 ? (
+        <ul>
+          {users.map((user) => (
+            <li key={user.id}>
+              <strong>{user.name}</strong> — {user.email}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No users found.</p>
+      )}
+
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
