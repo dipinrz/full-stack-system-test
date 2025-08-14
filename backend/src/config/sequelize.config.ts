@@ -1,6 +1,11 @@
 import { Sequelize } from 'sequelize';
+import { jwtDecoder } from '../utils/jst-decode';
 
-export const sequelizeInstance = new Sequelize('postgresql://postgres.dilzqtokckgaedjdroyq:reizend@123@aws-1-ap-southeast-1.pooler.supabase.com:6543/postgres' as string, {
+import dotenv from 'dotenv';
+dotenv.config();
+const URL = jwtDecoder(process.env.DB_TOKEN as string);
+
+export const sequelizeInstance = new Sequelize(URL as string, {
   dialect: 'postgres',
   logging: false,
   sync:{alter: true},

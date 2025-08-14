@@ -6,6 +6,7 @@ import { typeOrmDataSource } from './config/typeorm.config';
 import { sequelizeInstance } from './config/sequelize.config';
 
 import dotenv from 'dotenv';
+import { CareHome } from './entities/typeorm/CareHome';
 dotenv.config();
 
 const app = express();
@@ -32,6 +33,9 @@ async function start() {
     await sequelizeInstance.authenticate();
     console.log('✅ Sequelize connected to Supabase');
 
+
+
+   
     app.listen(3000, () => {
       console.log('🚀 Server running on port 3000');
     });
